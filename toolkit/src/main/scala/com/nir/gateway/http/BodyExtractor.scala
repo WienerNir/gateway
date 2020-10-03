@@ -12,13 +12,6 @@ import com.nir.gateway.monitor.Logging
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
-sealed trait ApiResponse
-
-object ApiResponse {
-  case class SuccessResponse[T](payload: T) extends ApiResponse
-  case class FailureResponse(error: String) extends ApiResponse
-}
-
 object BodyExtractor extends Logging {
 
   private val ResponseReadTimeout = 5.seconds

@@ -6,7 +6,7 @@ import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import com.nir.gateway.{CommonDirectives, Healthchecker}
-import com.nir.gateway.http.HttpClient
+import com.nir.gateway.http.HttpClientImpl
 import com.nir.gateway.monitor.Logging
 import pureconfig.ConfigSource
 import pureconfig._
@@ -46,7 +46,7 @@ object WebAppApiApp extends Logging {
         context.system.executionContext
       val config = ConfigSource.default.loadOrThrow[ApiConfig]
       startHttpServer(CommonDirectives.routeRoot {
-        new Healthchecker(HttpClient.resource(config.http)).route
+        new Healthchecker(HttpClientImpl.resource(config.http)).route
       }, context.system)
       Behaviors.empty
     }

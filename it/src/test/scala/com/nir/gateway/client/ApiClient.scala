@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model._
 import cats.ApplicativeError
 import cats.implicits._
-import com.nir.gateway.http.HttpClient
+import com.nir.gateway.http.{HttpClient, HttpClientImpl}
 import io.circe.Json
 import io.circe.parser.parse
 

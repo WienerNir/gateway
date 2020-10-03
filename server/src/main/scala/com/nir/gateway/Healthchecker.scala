@@ -5,13 +5,13 @@ import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.Materializer
-import com.nir.gateway.http.HttpClient
+import com.nir.gateway.http.HttpClientImpl
 import com.nir.gateway.monitor.Logging
 import io.circe.syntax._
 
 import scala.concurrent.ExecutionContext
 
-class Healthchecker(httpClient: HttpClient)(
+class Healthchecker(httpClient: HttpClientImpl)(
   implicit executionContext: ExecutionContext,
   actorSystem: ActorSystem,
   mat: Materializer
@@ -20,7 +20,6 @@ class Healthchecker(httpClient: HttpClient)(
   val route: Route =
     path("healthcheck") {
       get {
-        logger.info("in healthcheck")
         complete(
           HttpResponse(
             StatusCodes.OK,

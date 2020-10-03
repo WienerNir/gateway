@@ -7,7 +7,7 @@ import akka.stream.ActorMaterializer
 import org.testcontainers.containers.Network
 import cats.implicits._
 import com.nir.gateway.client.ApiClient
-import com.nir.gateway.http.HttpClient
+import com.nir.gateway.http.HttpClientImpl
 import com.nir.gateway.http.models.HttpConfig
 import com.nir.gateway.monitor.Logging
 import com.nir.gateway.retries.models.RetryPolicy
@@ -60,7 +60,7 @@ class TestEnvironment extends Logging {
 
   private def createApiClient(hostPort: HostPort) =
     new ApiClient(
-      HttpClient.resource(
+      HttpClientImpl.resource(
         HttpConfig(RetryPolicy(), s"http://${hostPort.host}:${hostPort.port}")
       )
     )
