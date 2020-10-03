@@ -15,7 +15,7 @@ import pureconfig.generic.auto._
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success}
 
-object WebAppApiApp extends Logging {
+object ServerApp extends Logging {
 
   private def startHttpServer(
     routes: Route,
@@ -44,7 +44,7 @@ object WebAppApiApp extends Logging {
         context.system.toClassic
       implicit val executionContext: ExecutionContext =
         context.system.executionContext
-      val config = ConfigSource.default.loadOrThrow[ApiConfig]
+      val config = ConfigSource.default.loadOrThrow[ServerConfig]
       startHttpServer(CommonDirectives.routeRoot {
         new Healthchecker(HttpClientImpl.resource(config.http)).route
       }, context.system)
