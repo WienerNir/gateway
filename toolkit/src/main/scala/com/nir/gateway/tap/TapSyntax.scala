@@ -1,4 +1,4 @@
-package com.nir.gateway
+package com.nir.gateway.tap
 
 import scala.language.implicitConversions
 
