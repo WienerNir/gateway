@@ -11,7 +11,7 @@ import akka.http.scaladsl.model.{
   StatusCodes
 }
 import akka.stream.Materializer
-import com.nir.gateway.TapSyntax._
+import com.nir.gateway.tap.TapSyntax._
 import com.nir.gateway.monitor.Logging
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContext, Future}
