@@ -32,7 +32,6 @@ class TestEnvironment extends Logging {
 
   private val imageBuilder = new ImageBuilder
   private val paymentGatewayMock = new PaymentGatewayFixture
-
   private val serverContainer = new ServerContainer(network)
 
   def start(): Future[Unit] = {
