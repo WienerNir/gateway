@@ -1,6 +1,6 @@
 package com.nir.gateway.gateway
 
-import io.circe.Encoder
+import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto._
 import io.circe.syntax._
 
@@ -13,5 +13,6 @@ case class ChargreRequest(fullName: String = "name",
 object ChargreRequest {
 
   implicit val encoder: Encoder[ChargreRequest] = deriveEncoder[ChargreRequest]
+  implicit val decoder: Decoder[ChargreRequest] = deriveDecoder[ChargreRequest]
 
 }

@@ -1,7 +1,11 @@
-package com.nir.gateway
+package com.nir.gateway.http
 
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directives.{complete, handleExceptions}
+import akka.http.scaladsl.server.Directives.{
+  complete,
+  handleExceptions,
+  pathPrefix
+}
 import akka.http.scaladsl.server.{Directive0, ExceptionHandler}
 import com.nir.gateway.monitor.Logging
 
@@ -15,6 +19,7 @@ object CommonDirectives extends Logging {
 
   val routeRoot: Directive0 = {
     handleExceptions(exceptionHandler)
+    pathPrefix("api")
   }
 
 }

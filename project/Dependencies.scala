@@ -33,7 +33,8 @@ object Dependencies {
     "com.softwaremill.retry" %% "retry" % "0.3.3",
     "io.circe" %% "circe-derivation" % "0.12.0-M3",
     "org.typelevel" %% "cats-core" % "2.0.0",
-    "com.softwaremill.quicklens" %% "quicklens" % "1.6.0"
+    "com.softwaremill.quicklens" %% "quicklens" % "1.6.0",
+    "de.heikoseeberger" %% "akka-http-circe" % "1.30.0"
   )
 
   val circe: Seq[ModuleID] = Seq(
