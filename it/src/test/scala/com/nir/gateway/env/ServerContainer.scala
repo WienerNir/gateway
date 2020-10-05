@@ -14,7 +14,7 @@ import scala.language.existentials
 class ServerContainer(network: Network)(implicit ec: ExecutionContext)
     extends Logging {
 
-  private val Port = 8888
+  private val Port = 8300
   private val ServerImage = "server:0.1.0-SNAPSHOT"
 
   private type Container = X forSome { type X <: GenericContainer[X] }

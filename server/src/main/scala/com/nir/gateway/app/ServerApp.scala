@@ -17,7 +17,7 @@ object ServerApp extends Logging {
   )(implicit ec: ExecutionContext): Unit = {
     implicit val classicSystem: akka.actor.ActorSystem = system.toClassic
 
-    val futureBinding = Http().bindAndHandle(routes, "localhost", 8000)
+    val futureBinding = Http().bindAndHandle(routes, "localhost", 8300)
     futureBinding.onComplete {
       case Success(binding) =>
         val address = binding.localAddress
