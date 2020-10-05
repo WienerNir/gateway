@@ -54,7 +54,8 @@ object Dependencies {
 
   val serverItDependencies: List[ModuleID] = unitTests ++ it
 
-  val commonDependencies: Seq[ModuleID] = circe ++ common ++ akka ++ enumeratum
+  val commonDependencies
+    : Seq[ModuleID] = circe ++ common ++ akka ++ enumeratum ++ unitTests
 
-  val serverDependencies: Seq[ModuleID] = commonDependencies ++ unitTests
+  val serverDependencies: Seq[ModuleID] = commonDependencies
 }
