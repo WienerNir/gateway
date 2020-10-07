@@ -8,23 +8,33 @@ import com.nir.store.operators.Operator.LeafOperator.{
   LessThan
 }
 import com.nir.store.operators.Operator.UnaryOperator.Not
+import com.nir.store.service.posts.dao.PostDb
 import com.nir.store.service.posts.models.Post
 import com.nir.store.service.posts.operators.properties.PostProperty.{
   IdProperty,
   ViewsProperty
 }
 
+import scala.collection.mutable.Set
 import scala.collection.mutable
 
 class PostReaderSpec extends UnitSpec {
 
-  val db = new mutable.HashMap[String, Post]
+  val db = new PostDb(
+    new mutable.HashMap[String, Post],
+    new mutable.HashMap[String, Set[String]],
+    new mutable.HashMap[String, Set[String]],
+    new mutable.HashMap[String, Set[String]],
+    new mutable.HashMap[String, Set[String]]
+  )
+
   val post1 = Post("1", "content_test", 123323, "test_title", 1)
   val post2 = Post("2", "content_test", 123323, "test_title", 4)
   val post3 = Post("3", "content_test", 123323, "test_title", 1)
-  db.put("1", post1)
-  db.put("2", post2)
-  db.put("3", post3)
+
+  db.save(post1)
+  db.save(post2)
+  db.save(post3)
 
   val subject = new PostReader(db)
 

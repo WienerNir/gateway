@@ -16,15 +16,15 @@ object OperatorBuilderImpl extends OperatorBuilder {
   override def fromString(s: String): Operator = {
 
     val UnaryPattaren =
-      "(not)\\(([equal|less_than|greater_than|and|or|not].*)\\)".r
+      "(NOT)\\(([EQUAL|LESS_THAN|GREATER_THAN|AND|OR|NOT].*)\\)".r
 
     val BinaryPattaren =
-      "(and|or)\\(([equal|less_than|greater_than|and|or|not].*),([equal|less_than|greater_than|and|or|not].*)\\)".r
+      "(AND|OR)\\(([EQUAL|LESS_THAN|GREATER_THAN|AND|OR|NOT].*),([EQUAL|LESS_THAN|GREATER_THAN|AND|OR|NOT].*)\\)".r
 
     val LeafOperationPattaren =
-      "(equal|less_than|greater_than)\\((.*),(.*)\\)".r
+      "(EQUAL|LESS_THAN|GREATER_THAN)\\((.*),(.*)\\)".r
 
-    s.toLowerCase.replaceAll("\\s", "") match {
+    s match {
       case BinaryPattaren(operator, a, b) => {
         val first = fromString(a)
         val second = fromString(b)
@@ -40,7 +40,7 @@ object OperatorBuilderImpl extends OperatorBuilder {
         buildLeafOperator(o, a, b)
       }
 
-      case _ => throw new InvalidOperatorException("unsupported operator")
+      case _ => throw InvalidOperatorException("unsupported operator")
     }
   }
 
@@ -49,9 +49,9 @@ object OperatorBuilderImpl extends OperatorBuilder {
                                 value: String): Operator = {
     val property = FieldToPropertyMapper.toProperty(field)
     operatorType match {
-      case "greater_than" => GreaterThan(property, value.toInt)
-      case "less_than"    => LessThan(property, value.toInt)
-      case "equal"        => Equal(property, value)
+      case "GREATER_THAN" => GreaterThan(property, value.toInt)
+      case "LESS_THAN"    => LessThan(property, value.toInt)
+      case "EQUAL"        => Equal(property, value)
     }
 
   }
@@ -60,15 +60,15 @@ object OperatorBuilderImpl extends OperatorBuilder {
                                   operatorA: Operator,
                                   operatorB: Operator): Operator = {
     operatorType match {
-      case "or"  => Or(operatorA, operatorB)
-      case "and" => And(operatorA, operatorB)
+      case "OR"  => Or(operatorA, operatorB)
+      case "AND" => And(operatorA, operatorB)
     }
   }
 
   private def buildUnaryOperator(operatorType: String,
                                  operator: Operator): Operator = {
     operatorType match {
-      case "not" => Not(operator)
+      case "NOT" => Not(operator)
     }
   }
 }

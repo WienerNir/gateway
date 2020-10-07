@@ -23,7 +23,7 @@ class PostServiceSpec extends UnitSpec {
 
   it should "call search when receiving search" in {
     val searchRequest = SearchRequest(Equal(IdProperty, "1"))
-    (reader.search _).when(*).returns(List.empty).once()
+    (reader.search _).when(*).returns(Set.empty).once()
     subject.search(searchRequest)
   }
 

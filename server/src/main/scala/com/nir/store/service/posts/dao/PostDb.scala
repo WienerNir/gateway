@@ -1,64 +1,71 @@
-package com.nir.store.service.posts
+package com.nir.store.service.posts.dao
 
 import com.nir.store.monitor.Logging
+import com.nir.store.operators.Property
 import com.nir.store.service.posts.models.Post
-import com.nir.store.service.posts.operators.properties.PostProperty
 import com.nir.store.service.posts.operators.properties.PostProperty.{
   ContentProperty,
-  IdProperty,
   TimestampProperty,
   TittleProperty,
   ViewsProperty
 }
 
 import scala.collection.mutable
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.Set
+import scala.collection.mutable.{HashMap, Set}
 
-class DB(postDb: HashMap[String, Post],
-         indexedViews: HashMap[String, Set[String]],
-         indexedContent: HashMap[String, Set[String]],
-         indexedTittle: HashMap[String, Set[String]],
-         indexedTimestamp: HashMap[String, Set[String]])
-    extends Logging {
+class PostDb(postTable: HashMap[String, Post],
+             indexedViews: HashMap[String, Set[String]],
+             indexedContent: HashMap[String, Set[String]],
+             indexedTittle: HashMap[String, Set[String]],
+             indexedTimestamp: HashMap[String, Set[String]])
+    extends DB
+    with Logging {
 
-  def getByIndex(indexType: PostProperty, key: String) = {
-    indexType match {
-      case IdProperty        => postDb.get(key)
+  override def getPosts(): Iterable[Post] = postTable.values
+
+  override def getByIndex(indexType: Property,
+                          key: String): Predef.Set[Post] = {
+    val result = indexType match {
       case ViewsProperty     => indexedViews.get(key)
-      case ContentProperty   => indexedContent.get(key)
+      case ContentProperty   => indexedContent.get(key.replaceAll("\"", ""))
       case TimestampProperty => indexedTimestamp.get(key)
-      case TittleProperty    => indexedTittle.get(key)
+      case TittleProperty    => indexedTittle.get(key.replaceAll("\"", ""))
     }
+    result.getOrElse(mutable.Set.empty).flatMap(getById).toSet
   }
 
-  def save(post: Post) = {
-    postDb.get(post.id) match {
+  override def getById(key: String): Option[Post] = {
+    postTable.get(key.replaceAll("\"", ""))
+  }
+
+  override def save(post: Post): Unit = {
+    postTable.get(post.id) match {
       case Some(prevPost) => {
         logger.info(s"Updating post with id: ${post.id} to $post, in db")
-        postDb.update(post.id, post)
+        postTable.update(post.id, post)
         removeFromIndexes(prevPost)
         index(post)
       }
       case None => {
         logger.info(s"Creating new $post, in db")
-        postDb.put(post.id, post)
+        postTable.put(post.id, post)
+        index(post)
       }
     }
   }
 
   private def index(post: Post): Unit = {
     upsert(post.views.toString, post.id, indexedViews)
-    upsert(post.timestamp.toString, post.id, indexedViews)
-    upsert(post.title, post.id, indexedViews)
-    upsert(post.content, post.id, indexedViews)
+    upsert(post.timestamp.toString, post.id, indexedTimestamp)
+    upsert(post.title, post.id, indexedTittle)
+    upsert(post.content, post.id, indexedContent)
   }
 
   private def removeFromIndexes(post: Post): Unit = {
     remove(post.views.toString, post.id, indexedViews)
-    remove(post.timestamp.toString, post.id, indexedViews)
-    remove(post.title, post.id, indexedViews)
-    remove(post.content, post.id, indexedViews)
+    remove(post.timestamp.toString, post.id, indexedTimestamp)
+    remove(post.title, post.id, indexedTittle)
+    remove(post.content, post.id, indexedContent)
   }
 
   private def upsert(key: String,
@@ -83,7 +90,7 @@ class DB(postDb: HashMap[String, Post],
       case Some(set) => {
         set.remove(value)
       }
-      case None => _
+      case None => ()
     }
   }
 }

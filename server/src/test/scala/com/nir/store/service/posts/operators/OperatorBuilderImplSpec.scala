@@ -8,7 +8,6 @@ import com.nir.store.operators.Operator.LeafOperator.{
   LessThan
 }
 import com.nir.store.operators.Operator.UnaryOperator.Not
-import com.nir.store.service.posts.operators.exceptions.InvalidOperatorException
 import com.nir.store.service.posts.operators.properties.PostProperty.{
   IdProperty,
   ViewsProperty
@@ -17,7 +16,7 @@ import com.nir.store.service.posts.operators.properties.PostProperty.{
 class OperatorBuilderImplSpec extends UnitSpec {
 
   it should "return Or operator" in {
-    val input = "or(equal(id,test),greater_than(views,4))"
+    val input = "OR(EQUAL(id,test),GREATER_THAN(views,4))"
     OperatorBuilderImpl.fromString(input) shouldBe Or(
       Equal(IdProperty, "test"),
       GreaterThan(ViewsProperty, 4)
@@ -26,7 +25,7 @@ class OperatorBuilderImplSpec extends UnitSpec {
   }
 
   it should "return And operator" in {
-    val input = "and(equal(id,test),greater_than(views,4))"
+    val input = "AND(EQUAL(id,test),GREATER_THAN(views,4))"
     OperatorBuilderImpl.fromString(input) shouldBe And(
       Equal(IdProperty, "test"),
       GreaterThan(ViewsProperty, 4)
@@ -34,7 +33,7 @@ class OperatorBuilderImplSpec extends UnitSpec {
   }
 
   it should "return Not operator" in {
-    val input = "not(equal(id,test))"
+    val input = "NOT(EQUAL(id,test))"
     OperatorBuilderImpl.fromString(input) shouldBe Not(
       Equal(IdProperty, "test")
     )
@@ -42,17 +41,17 @@ class OperatorBuilderImplSpec extends UnitSpec {
   }
 
   it should "return Equal operator" in {
-    val input = "equal(id,test)"
+    val input = "EQUAL(id,test)"
     OperatorBuilderImpl.fromString(input) shouldBe Equal(IdProperty, "test")
   }
 
   it should "return LessThan operator" in {
-    val input = "less_than(views,4)"
+    val input = "LESS_THAN(views,4)"
     OperatorBuilderImpl.fromString(input) shouldBe LessThan(ViewsProperty, 4)
   }
 
   it should "return GreaterThan operator" in {
-    val input = "greater_than(views,4)"
+    val input = "GREATER_THAN(views,4)"
     OperatorBuilderImpl.fromString(input) shouldBe GreaterThan(ViewsProperty, 4)
   }
 

@@ -27,6 +27,7 @@ import akka.http.scaladsl.server.Directives.{
 }
 import akka.http.scaladsl.server.Route
 import akka.stream.Materializer
+import com.nir.store.service.posts.dao.DB
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 
 import scala.concurrent.ExecutionContext
@@ -76,11 +77,9 @@ class StoreRoute(service: PostService)(
 
 object StoreRoute {
 
-  def resource(db: mutable.HashMap[String, Post])(
-    implicit executionContext: ExecutionContext,
-    actorSystem: ActorSystem,
-    mat: Materializer
-  ) =
+  def resource(db: DB)(implicit executionContext: ExecutionContext,
+                       actorSystem: ActorSystem,
+                       mat: Materializer) =
     new StoreRoute(PostService.create(db))
 
 }

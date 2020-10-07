@@ -19,7 +19,6 @@ object CommonDirectives extends Logging {
 
   val routeRoot: Directive0 = {
     handleExceptions(exceptionHandler)
-    pathPrefix("api")
   }
 
 }

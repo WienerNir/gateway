@@ -9,7 +9,7 @@ object UrlParameterFormats extends Logging {
 
   val operatorUnmarshaller: Unmarshaller[String, SearchRequest] =
     Unmarshaller.strict[String, SearchRequest](query => {
-      logger.info(s"$query")
+      logger.info(s"Query param: $query")
       val operator =
         OperatorBuilderImpl.fromString(query)
       SearchRequest(operator)

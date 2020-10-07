@@ -2,10 +2,9 @@ package com.nir.store.service.posts
 
 import com.nir.store.monitor.Logging
 import com.nir.store.dao.Writer
+import com.nir.store.service.posts.dao.{DB, PostDb}
 import com.nir.store.service.posts.models.Post
 
-import scala.collection.mutable
-import scala.collection.mutable.HashMap
 import scala.concurrent.ExecutionContext
 
 private[posts] class PostWriter(db: DB)(implicit ec: ExecutionContext)
@@ -19,7 +18,7 @@ private[posts] class PostWriter(db: DB)(implicit ec: ExecutionContext)
 
 object PostWriter {
 
-  def create(db: DB)(implicit ec: ExecutionContext) = {
+  def create(db: PostDb)(implicit ec: ExecutionContext) = {
     new PostWriter(db)
   }
 }
