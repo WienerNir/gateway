@@ -58,9 +58,11 @@ private[posts] class PostReader(db: DB)(implicit ec: ExecutionContext)
       }
 
       case NotEqual(property, value) =>
-        set.filterNot(
-          p => PropertyToValueMapper.getStringValue(property, p) == value
-        )
+        set.filter(p => {
+          val v = PropertyToValueMapper.getStringValue(property, p)
+          PropertyToValueMapper.getStringValue(property, p) != value
+            .replaceAll("\"", "")
+        })
 
     }
   }
