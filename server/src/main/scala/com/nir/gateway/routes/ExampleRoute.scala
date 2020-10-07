@@ -1,26 +1,26 @@
-package com.nir.gateway.http
+package com.nir.gateway.routes
 
+import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{
   complete,
   get,
   handleWith,
   parameters,
   path,
-  post
+  post,
+  _
 }
-import akka.actor.ActorSystem
-import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import akka.stream.Materializer
 import com.nir.gateway.gateway.{Color, Example}
 import com.nir.gateway.monitor.Logging
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
-import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
-import akka.http.scaladsl.server.Route
+
 import scala.concurrent.ExecutionContext
 
-class ExampleRoute(implicit executionContext: ExecutionContext,
-                   actorSystem: ActorSystem,
-                   mat: Materializer)
+class ExampleRoute()(implicit executionContext: ExecutionContext,
+                     actorSystem: ActorSystem,
+                     mat: Materializer)
     extends Logging
     with FailFastCirceSupport {
 

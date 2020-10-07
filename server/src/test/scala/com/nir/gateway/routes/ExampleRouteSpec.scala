@@ -1,20 +1,13 @@
-package com.nir.gateway.http
+package com.nir.gateway.routes
 
-import akka.http.scaladsl.model.HttpRequest
-import com.nir.gateway.UnitSpec
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.testkit.ScalatestRouteTest
+import com.nir.gateway.UnitSpec
 import com.nir.gateway.gateway.ChargreRequest
-import org.scalatest.concurrent.ScalaFutures
 import com.nir.gateway.gateway.ChargreRequest._
-import MediaTypes._
 import io.circe.syntax._
 
-class ExampleRouteSpec
-    extends UnitSpec
-    with ScalaFutures
-    with ScalatestRouteTest {
+class ExampleRouteSpec extends UnitSpec {
 
   lazy val testKit = ActorTestKit()
   implicit def typedSystem = testKit.system

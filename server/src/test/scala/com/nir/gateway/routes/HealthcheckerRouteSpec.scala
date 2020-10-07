@@ -1,13 +1,12 @@
-package com.nir.gateway.http
+package com.nir.gateway.routes
 
-import akka.http.scaladsl.model.HttpRequest
-import com.nir.gateway.UnitSpec
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
-import akka.http.scaladsl.model._
+import akka.http.scaladsl.model.{HttpRequest, _}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import com.nir.gateway.UnitSpec
 import org.scalatest.concurrent.ScalaFutures
 
-class HealthcheckerSpec
+class HealthcheckerRouteSpec
     extends UnitSpec
     with ScalaFutures
     with ScalatestRouteTest {
@@ -17,7 +16,7 @@ class HealthcheckerSpec
   implicit val classicSystem: akka.actor.ActorSystem =
     testKit.system.classicSystem
 
-  lazy val routes = new Healthchecker().routes
+  lazy val routes = new HealthcheckerRoute().routes
 
   "HealthcheckRoutes" should {
     "return 200 for get request" in {

@@ -12,13 +12,13 @@ import com.nir.gateway.monitor.Logging
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
-object BodyExtractor extends Logging {
+object BodyExtractor extends HttpExtractor {
 
   private val ResponseReadTimeout = 5.seconds
 
-  def extractEntityBody[T](entity: HttpEntity)(implicit ec: ExecutionContext,
-                                               decoder: Decoder[T],
-                                               system: ActorSystem): Future[T] =
+  def extract[T](entity: HttpEntity)(implicit ec: ExecutionContext,
+                                     decoder: Decoder[T],
+                                     system: ActorSystem): Future[T] =
     entity
       .toStrict(ResponseReadTimeout)
       .map(_.getData())

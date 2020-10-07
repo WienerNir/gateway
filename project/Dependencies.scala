@@ -7,6 +7,7 @@ object Dependencies {
   val circeVersion = "0.12.3"
   val enumeratumCֹirceVersion = "1.5.18"
   val enumeratumVersion = "1.5.13"
+  val http4sVersion = "0.19.0"
 
   private val akka: List[ModuleID] = List(
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
@@ -52,10 +53,19 @@ object Dependencies {
     "org.scalamock" %% "scalamock" % "4.1.0" % Test
   )
 
+  val http = Seq(
+    // Only necessary for SNAPSHOT release
+    //resolvers += Resolver.sonatypeRepo("snapshots")
+    "org.http4s" %% "http4s-dsl" % http4sVersion,
+    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
+    "org.http4s" %% "http4s-blaze-client" % http4sVersion,
+    "org.http4s" %% "http4s-client" % http4sVersion,
+  )
+
   val serverItDependencies: List[ModuleID] = unitTests ++ it
 
   val commonDependencies
-    : Seq[ModuleID] = circe ++ common ++ akka ++ enumeratum ++ unitTests
+    : Seq[ModuleID] = circe ++ common ++ akka ++ enumeratum ++ unitTests ++ http
 
   val serverDependencies: Seq[ModuleID] = commonDependencies
 }
