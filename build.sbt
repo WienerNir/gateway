@@ -3,7 +3,7 @@ import sbt.Keys.libraryDependencies
 lazy val akkaHttpVersion = "10.1.12"
 lazy val akkaVersion = "2.6.6"
 
-name := "gateway"
+name := "store"
 
 lazy val server = (project in file("server"))
   .enablePlugins(JavaAppPackaging)
@@ -18,10 +18,3 @@ lazy val toolkit = (project in file("toolkit"))
     name := "toolkit",
     libraryDependencies ++= Dependencies.commonDependencies
   )
-
-lazy val it = (project in file("it"))
-  .settings(
-    name := "it",
-    libraryDependencies ++= Dependencies.serverItDependencies
-  )
-  .dependsOn(toolkit)
