@@ -5,7 +5,7 @@ This project is based on [Akka HTTP Quickstart for Scala](https://developer.ligh
 - On OSX or Linux systems, enter `./sbt`
 - On Windows systems, enter `sbt.bat`.
 
-At the sbt prompt, enter `server/reStart`.
+At the sbt prompt, enter `server/run`.
 The output should look something like this:
 ```
 ...
@@ -13,7 +13,7 @@ The output should look something like this:
 ```
 The server is now running, and you can test it by sending simple HTTP requests.
 
-You can restart it by entering reStart again, and stop it with `server/reStop`. 
+You can restart it by entering run again, and stop it with `server/reStop`. 
 
 
 #Unit Tests

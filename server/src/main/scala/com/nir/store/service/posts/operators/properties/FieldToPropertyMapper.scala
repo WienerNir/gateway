@@ -6,7 +6,7 @@ object FieldToPropertyMapper {
 
   def toProperty(field: String) =
     field match {
-      case "tittle"    => TittleProperty
+      case "title"     => TittleProperty
       case "id"        => IdProperty
       case "views"     => ViewsProperty
       case "content"   => ContentProperty

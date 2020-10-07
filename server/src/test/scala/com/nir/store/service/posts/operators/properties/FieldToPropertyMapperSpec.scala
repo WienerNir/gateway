@@ -12,7 +12,7 @@ import com.nir.store.service.posts.operators.properties.PostProperty.{
 class FieldToPropertyMapperSpec extends UnitSpec {
 
   it should "return TittleProperty when receiving tittle" in {
-    FieldToPropertyMapper.toProperty("tittle") shouldBe TittleProperty
+    FieldToPropertyMapper.toProperty("title") shouldBe TittleProperty
   }
 
   it should "return IdProperty when receiving views" in {
