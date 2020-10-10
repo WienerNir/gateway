@@ -9,10 +9,8 @@ import com.nir.store.service.posts.models.Post
 import io.scalaland.chimney.dsl._
 import cats.implicits._
 import com.nir.store.monitor.Logging
-import com.nir.store.service.posts.dao.{DB, PostDb}
+import com.nir.store.service.posts.dao.DB
 import com.nir.store.service.posts.models.responses.SearchResponse
-
-import scala.collection.mutable.HashMap
 import scala.concurrent.{ExecutionContext, Future}
 
 class PostService(writer: Writer[Post, Unit], reader: Reader[Operator, Post])(

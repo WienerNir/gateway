@@ -22,10 +22,10 @@ class PostReaderSpec extends UnitSpec {
 
   val db = new PostDb(
     new mutable.HashMap[String, Post],
-    new mutable.HashMap[String, Set[String]],
-    new mutable.HashMap[String, Set[String]],
-    new mutable.HashMap[String, Set[String]],
-    new mutable.HashMap[String, Set[String]]
+    new mutable.HashMap[String, mutable.Set[String]],
+    new mutable.HashMap[String, mutable.Set[String]],
+    new mutable.HashMap[String, mutable.Set[String]],
+    new mutable.HashMap[String, mutable.Set[String]]
   )
 
   val post1 = Post("1", "content_test", 123323, "test_title", 1)
